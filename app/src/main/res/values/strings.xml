@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PuntoVenta</string>
+    <string name="Titulo_Layout_Articulos">Ingreso de Articulos</string>
+    <string name="id_articulo">ID:</string>
+    <string name="codigo_articulo">Cod. Art.</string>
+    <string name="leer_cod_barras">Leer Codigo</string>
+    <string name="etiqueta_nombre_articulo">Nombre:</string>
+    <string name="etiqueta_precio_compra">Precio de Compra:</string>
+    <string name="etiqueta_precio_venta">Precio de Venta:</string>
+    <string name="guardar_item">GUARDAR</string>
+    <string name="etiqueta_volver">VOLVER</string>
+    <string name="tomar_foto">TOMAR FOTO</string>
+    <string name="id_unico_articulo">ID</string>
+    <string name="stock">Cantidad STOCK</string>
+</resources>

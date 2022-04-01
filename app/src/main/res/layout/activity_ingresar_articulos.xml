@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/imagen1"
+    tools:context=".IngresarArticulos">
+
+    <TextView
+        android:id="@+id/etiquetaTituloArticulos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/teko_titulos"
+        android:gravity="center"
+        android:text="@string/Titulo_Layout_Articulos"
+        android:textColor="@color/color_etiquetas_titulo"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/label_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/codigo_articulo"
+        android:fontFamily="@font/teko_subtitulos"
+        android:textSize="30sp"
+        android:textColor="@color/color_etiquetas_subtitulos"
+        android:layout_below="@id/etiquetaTituloArticulos"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="5dp"
+        />
+
+    <EditText
+        android:id="@+id/texto_cod_articulol1"
+        android:layout_width="175dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/etiquetaTituloArticulos"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/label_id"
+        android:background="@drawable/estilo_borde_texto" />
+
+    <Button
+        android:id="@+id/btn_leer_barras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etiquetaTituloArticulos"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/texto_cod_articulol1"
+        android:backgroundTint="@color/color_botones"
+        android:fontFamily="@font/font_botones"
+        android:text="@string/leer_cod_barras"
+        android:textColor="@color/white"
+        app:cornerRadius="10dp" />
+
+    <TextView
+        android:id="@+id/label_nombre_articulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/etiqueta_nombre_articulo"
+        android:fontFamily="@font/teko_subtitulos"
+        android:gravity="center"
+        android:textColor="@color/color_etiquetas_subtitulos"
+        android:textSize="30sp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/label_id"
+        />
+
+    <EditText
+        android:id="@+id/texto_nombre_articulol1"
+        android:layout_width="295dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/texto_cod_articulol1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/label_nombre_articulo"
+        android:background="@drawable/estilo_borde_texto" />
+    <TextView
+        android:id="@+id/label_nombre_precio_compra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/etiqueta_precio_compra"
+        android:fontFamily="@font/teko_subtitulos"
+        android:gravity="center"
+        android:textColor="@color/color_etiquetas_subtitulos"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/label_nombre_articulo"
+        />
+
+    <EditText
+        android:id="@+id/texto_precioCompra_articulol1"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/texto_nombre_articulol1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/label_nombre_precio_compra"
+        android:background="@drawable/estilo_borde_texto"
+        android:inputType="number|numberDecimal" />
+    <TextView
+        android:id="@+id/label_nombre_precio_venta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/etiqueta_precio_venta"
+        android:fontFamily="@font/teko_subtitulos"
+        android:gravity="center"
+        android:textColor="@color/color_etiquetas_subtitulos"
+        android:textSize="30sp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/label_nombre_precio_compra"
+        />
+
+    <TextView
+        android:id="@+id/idUnico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/texto_nombre_articulol1"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/teko_subtitulos"
+        android:text="@string/id_unico_articulo"
+        android:textColor="@color/color_etiquetas_subtitulos"
+        android:textSize="30sp"
+        android:layout_toRightOf="@id/texto_precioCompra_articulol1"
+        />
+    <TextView
+        android:id="@+id/id_stock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/texto_id_articulo"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/teko_subtitulos"
+        android:text="@string/stock"
+        android:textColor="@color/color_etiquetas_subtitulos"
+        android:textSize="30sp"
+        android:layout_toRightOf="@id/fotoArticulo"
+        />
+
+    <EditText
+        android:id="@+id/texto_precioVenta_articulol1"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/texto_precioCompra_articulol1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/label_nombre_precio_compra"
+        android:background="@drawable/estilo_borde_texto"
+        android:inputType="number|numberDecimal" />
+    <EditText
+        android:id="@+id/texto_id_articulo"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/idUnico"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/texto_precioVenta_articulol1"
+        android:background="@drawable/estilo_borde_texto"
+        android:inputType="number" />
+    <EditText
+        android:id="@+id/texto_id_stock"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/id_stock"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/fotoArticulo"
+        android:background="@drawable/estilo_borde_texto"
+        android:inputType="number" />
+
+    <ImageView
+        android:id="@+id/fotoArticulo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/texto_precioVenta_articulol1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        />
+
+    <Button
+        android:id="@+id/tomarFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/texto_precioVenta_articulol1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="180dp"
+        android:layout_toRightOf="@id/fotoArticulo"
+        android:fontFamily="@font/font_botones"
+        android:padding="20dp"
+        android:text="@string/tomar_foto"
+        android:textSize="15sp"
+
+        />
+    <Button
+        android:id="@+id/boton_guardar_l1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fotoArticulo"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/color_etiquetas_subtitulos"
+        android:fontFamily="@font/font_botones"
+        android:text="@string/guardar_item"
+        android:textSize="30sp"
+        app:cornerRadius="10dp" />
+
+    <Button
+        android:id="@+id/boton_volver_l1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/boton_guardar_l1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/color_etiquetas_subtitulos"
+        android:fontFamily="@font/font_botones"
+        android:text="@string/etiqueta_volver"
+        android:textSize="30sp"
+        app:cornerRadius="10dp" />
+
+</RelativeLayout>

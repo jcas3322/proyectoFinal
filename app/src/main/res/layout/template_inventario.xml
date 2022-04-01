@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imagenRecicler"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:srcCompat="@mipmap/ic_launcher_round"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+    <TextView
+        android:id="@+id/idProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID Producto"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/color_etiquetas_titulo"
+        android:background="@drawable/bordes_recyclerview"
+        />
+    <TextView
+        android:id="@+id/codigoProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Codigo Producto"
+        android:textColor="@color/color_etiquetas_titulo"
+        android:layout_marginLeft="3dp"
+        android:background="@drawable/bordes_recyclerview"
+        />
+</LinearLayout>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:orientation="horizontal"
+    >
+        <TextView
+            android:id="@+id/precioCompra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio Compra"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/color_etiquetas_titulo"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bordes_recyclerview"
+            />
+        <TextView
+            android:id="@+id/precioVenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio Venta"
+            android:textColor="@color/color_etiquetas_titulo"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bordes_recyclerview"/>
+        <TextView
+            android:id="@+id/stockProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stock"
+            android:textColor="@color/color_etiquetas_titulo"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"
+            android:background="@drawable/bordes_recyclerview"
+            />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/nombreProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Producto"
+            android:textColor="@color/color_etiquetas_titulo"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bordes_recyclerview"
+            />
+    </LinearLayout>
+</LinearLayout>

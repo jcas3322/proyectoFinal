@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_etiquetas_titulo">#4f423b</color>
+    <color name="color_etiquetas_subtitulos">#905ca6</color>
+    <color name="bordes_cajas_texto">#59de4e</color>
+    <color name="bordes_cajas_texto2">#9c9c9c</color>
+    <color name="color_botones">#de714e</color>
+    <color name="purple_200">#33F0FF</color>
+    <color name="purple_500">#fd007f</color>
+    <color name="purple_700">#C3D3FF</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
