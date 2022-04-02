@@ -162,7 +162,9 @@ class IngresarArticulos : AppCompatActivity() {
         }
     }
     fun solicitudPermiso(){
+
         requestPermissions(arrayOf(permisoCamara,permisoReadStorage,permisoWriteStorage),SOLICITUD_TOMAR_FOTO)
+
     }
 
     override fun onRequestPermissionsResult(
