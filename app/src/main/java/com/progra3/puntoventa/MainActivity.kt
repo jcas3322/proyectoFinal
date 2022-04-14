@@ -14,10 +14,10 @@ class MainActivity : AppCompatActivity() {
         val botonVentas=findViewById<Button>(R.id.botonVentas)
 
         botonVentas.setOnClickListener {
-            startActivity(Intent(this,ActividadInventario::class.java))
+
         }
         botonInventario.setOnClickListener {
-            startActivity(Intent(this,IngresarArticulos::class.java))
+            startActivity(Intent(this,ActividadInventario::class.java))
         }
     }
 }

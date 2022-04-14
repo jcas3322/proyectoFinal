@@ -5,21 +5,25 @@ import com.progra3.modelos.ArticulosIngresados
 import com.progra3.modelos.ArticulosVendidos
 import com.progra3.modelos.RegistroDeVentas
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Url
+import retrofit2.http.*
 
 interface ServiciosRestArticulo {
 
-    @GET("/maxid")
+    @GET("/articulos/maxid")
     fun getMaxIdArticulos():Call<Articulo>
 
-    @GET("/all")
+    @GET("/articulos/all")
     fun getAllArticulos():Call<List<Articulo>>
 
-    @GET("/buscarPor/{nombre}")
+    @GET("/articulos/buscarPor/{nombre}")
     fun getLikeAsArticulo(@Path("nombre")nombre:String):Call<List<Articulo>>
 
-    @GET
-    fun getRegistroDeVentas(@Url ruta: String):Call<List<RegistroDeVentas>>
+    @POST("/articulos/agregar")
+    fun createArticulo(@Body articulo:Articulo):Call<Articulo>
+
+    @PUT("/articulos/actualizar/{id}")
+    fun updateArticulo(@Path("id")id:Long,@Body articulo:Articulo):Call<Articulo>
+
+    @DELETE("/articulos/borrar/{id}")
+    fun deleteArticulo(@Path("id")id:Long):Call<Void>
 }

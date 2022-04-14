@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -22,6 +23,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
+import com.progra3.modelos.Articulo
+import com.progra3.modelos.ArticulosIngresados
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,7 +36,6 @@ class IngresarArticulos : AppCompatActivity() {
     val permisoCamara=android.Manifest.permission.CAMERA
     val permisoWriteStorage=android.Manifest.permission.WRITE_EXTERNAL_STORAGE
     val permisoReadStorage=android.Manifest.permission.READ_EXTERNAL_STORAGE
-    var UrlFotoActual=""
 
     var iVfoto:ImageView?=null
 
@@ -46,6 +48,17 @@ class IngresarArticulos : AppCompatActivity() {
 
     var fotofoto:ActivityResultLauncher<Intent>? =null
     var scannerBarras:ActivityResultLauncher<Intent>? =null
+
+    companion object{
+        var modificar=false
+        var idArticulo:Long=0
+        var codigo:String=""
+        var nombre:String=""
+        var compra:Double=0.0
+        var venta:Double=0.0
+        var stock:Int=0
+        var UrlFotoActual=""
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +79,7 @@ class IngresarArticulos : AppCompatActivity() {
 
         fotofoto=registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             result:ActivityResult ->
-            if (result.resultCode==Activity.RESULT_OK){
+            if (result.resultCode== RESULT_OK){
                 val uri= Uri.parse(UrlFotoActual)
                 val stream=contentResolver.openInputStream(uri)
                 val imageBitmap=BitmapFactory.decodeStream(stream)
@@ -103,22 +116,77 @@ class IngresarArticulos : AppCompatActivity() {
 
         botonVolver.setOnClickListener { finish()}
         botonGuardar.setOnClickListener {
-            if (verificarCampos()){
-                var crud=CRUD(this)
-                var articulos=Articulos(textoIdArticulo?.text!!.toString().toInt(),textoCodArticulo?.text!!.toString()
-                ,textoNombreArticulo?.text!!.toString(),textoPrecioCompra?.text!!.toString().toDouble(),
-                textoPrecioVenta?.text!!.toString().toDouble(),UrlFotoActual)
+            if (!modificar){
+                if (verificarCampos()){
+                    var articulo=Articulo(textoIdArticulo?.text!!.toString().toLong(),textoCodArticulo?.text!!.toString(),
+                        textoNombreArticulo?.text!!.toString(),textoPrecioCompra?.text!!.toString().toDouble(),
+                        textoPrecioVenta?.text!!.toString().toDouble(),textoStock?.text!!.toString().toInt(),UrlFotoActual)
 
-                if(crud.nuevoArticulo(articulos,textoStock?.text!!.toString().toInt())) limpiarControles()
+                    //Guardar Articulo Nuevo
+                    var RestArticulo=ImplementacionRestArticulo(this)
+                    RestArticulo.addArticulo(articulo){
+                        if (it != null){limpiarControles()}
+                    }
+                    //Registrarlo en Ingreso de Articulos
+                    var RestIngresoArticulo=ImplementacionRestArticulosIngresados(this)
+                    val ingreso=ArticulosIngresados(null,textoIdArticulo?.text!!.toString().toLong(),
+                    textoStock?.text!!.toString().toInt(),null)
+                    RestIngresoArticulo.addIngresoArticulo(ingreso){
+                        if (it != null){
+                            Toast.makeText(this,"Operacion Finalizada con EXITO",Toast.LENGTH_SHORT).show()
+                        }
+                    }
+    /*METODO SQLITE
+                    var crud=CRUD(this)
+                    var articulos=Articulos(textoIdArticulo?.text!!.toString().toInt(),textoCodArticulo?.text!!.toString()
+                    ,textoNombreArticulo?.text!!.toString(),textoPrecioCompra?.text!!.toString().toDouble(),
+                    textoPrecioVenta?.text!!.toString().toDouble(),UrlFotoActual)
+                    if(crud.nuevoArticulo(articulos,textoStock?.text!!.toString().toInt())) limpiarControles()
+    */
+                }
+            }else{
+                //Falta implementar update de articulo para ingreso de stock y modificacion de articulo-------
             }
         }
+        textoIdArticulo?.focusable= View.NOT_FOCUSABLE
+        siModificaroNo()
     }
+
+    //Creando funcion de modificar o ingresar nuevo articulo
+    fun siModificaroNo(){
+        if (modificar){
+            textoCodArticulo?.setText(codigo)
+            textoNombreArticulo?.setText(nombre)
+            textoPrecioCompra?.setText(compra.toString())
+            textoPrecioVenta?.setText(venta.toString())
+            textoIdArticulo?.setText(idArticulo.toString())
+            textoStock?.setText(stock.toString())
+            val uri= Uri.parse(UrlFotoActual)
+            val stream=contentResolver.openInputStream(uri)
+            val imageBitmap=BitmapFactory.decodeStream(stream)
+            iVfoto?.setImageBitmap(imageBitmap)
+            textoCodArticulo?.requestFocus()
+        }else{
+            var buscarmaxId=ImplementacionRestArticulo(this)
+            textoIdArticulo?.setText("1")
+            buscarmaxId.maxIdArticulo(){
+                if (it?.id!=null){
+                    var contador:Long=0
+                    contador=it?.id+1
+                    textoIdArticulo?.setText(contador.toString())
+                }
+            }
+        }
+        textoCodArticulo?.requestFocus()
+    }
+
     fun limpiarControles(){
         textoCodArticulo?.setText("")
         textoNombreArticulo?.setText("")
         textoPrecioCompra?.setText("")
         textoPrecioVenta?.setText("")
-        textoIdArticulo?.setText("")
+        var conteo:Long=textoIdArticulo?.text.toString().toLong()+1
+        textoIdArticulo?.setText(conteo.toString())
         textoStock?.setText("")
         iVfoto?.setImageBitmap(null)
         textoCodArticulo?.requestFocus()
@@ -190,7 +258,7 @@ class IngresarArticulos : AppCompatActivity() {
         val timestamp=SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val nombreArchivoImagen="JPEG_" + timestamp + "_"
         val directorio =getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val imagen = File.createTempFile(nombreArchivoImagen,"jpg",directorio)
+        val imagen = File.createTempFile(nombreArchivoImagen,".jpg",directorio)
 
         UrlFotoActual="file://"+imagen.absolutePath
         return imagen

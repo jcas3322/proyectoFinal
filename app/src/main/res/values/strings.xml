@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PuntoVenta</string>
+    <string name="app_name">Tienda</string>
     <string name="Titulo_Layout_Articulos">Ingreso de Articulos</string>
     <string name="id_articulo">ID:</string>
     <string name="codigo_articulo">Cod. Art.</string>

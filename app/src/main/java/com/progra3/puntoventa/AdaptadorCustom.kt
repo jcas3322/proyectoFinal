@@ -9,13 +9,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.progra3.modelos.Articulo
 
-class AdaptadorCustom(var contexto:Context,items:ArrayList<Elementos>):RecyclerView.Adapter<AdaptadorCustom.ViewHolder>() {
+class AdaptadorCustom(var contexto:Context,item:List<Articulo>):RecyclerView.Adapter<AdaptadorCustom.ViewHolder>() {
 
-    var items:ArrayList<Elementos>? =null
+    var items:List<Articulo>?=null
 
     init {
-        this.items=items
+        this.items=item
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdaptadorCustom.ViewHolder {
@@ -26,16 +27,15 @@ class AdaptadorCustom(var contexto:Context,items:ArrayList<Elementos>):RecyclerV
 
     override fun onBindViewHolder(holder: AdaptadorCustom.ViewHolder, position: Int) {
         val item=items?.get(position)
-        val uri=Uri.parse(item?.url_imagen)
+        val uri=Uri.parse(item?.urlImagen)
         val stream=contexto.contentResolver.openInputStream(uri)
         val imageBitmap=BitmapFactory.decodeStream(stream)
         holder.foto?.setImageBitmap(imageBitmap)
-        holder.nombre?.text="NOMBRE: "+item?.nombre
-        holder.id_articulo?.text="ID: "+item?.id_elemento.toString()
-        holder.codigo_articulo?.text="COD: "+item?.codigo
-        holder.precio_venta?.text="Q."+item?.precio_venta.toString()
-        holder.precio_compra?.text="Q."+item?.precio_compra.toString()
-        holder.stock?.text="STOCK: "+item?.stock.toString()
+        holder.nombre?.text=item?.nombre
+        holder.codigo_articulo?.text=item?.codigo
+        holder.precio_venta?.text="Q."+item?.precioVenta.toString()
+        holder.precio_compra?.text="Q."+item?.precioCompra.toString()
+        holder.stock?.text="#"+item?.stock.toString()
     }
 
     override fun getItemCount(): Int {
@@ -45,7 +45,6 @@ class AdaptadorCustom(var contexto:Context,items:ArrayList<Elementos>):RecyclerV
     class ViewHolder(vista:View):RecyclerView.ViewHolder(vista){
         var vista=vista
         var foto:ImageView?=null
-        var id_articulo:TextView?=null
         var codigo_articulo:TextView?=null
         var precio_compra:TextView?=null
         var precio_venta:TextView?=null
@@ -54,7 +53,6 @@ class AdaptadorCustom(var contexto:Context,items:ArrayList<Elementos>):RecyclerV
 
         init{
             foto=vista.findViewById(R.id.imagenRecicler)
-            id_articulo=vista.findViewById(R.id.idProducto)
             codigo_articulo=vista.findViewById(R.id.codigoProducto)
             precio_compra=vista.findViewById(R.id.precioCompra)
             precio_venta=vista.findViewById(R.id.precioVenta)
