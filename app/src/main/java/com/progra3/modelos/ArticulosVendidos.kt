@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ArticulosVendidos(
     @Expose
-    @SerializedName("id")var id:Long,
+    @SerializedName("id")var id:Long?,
     @Expose
     @SerializedName("idVenta")var idVenta:Long,
     @Expose

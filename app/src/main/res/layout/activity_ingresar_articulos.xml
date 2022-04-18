@@ -97,13 +97,13 @@
         android:id="@+id/texto_precioCompra_articulol1"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:singleLine="true"
         android:layout_below="@id/texto_nombre_articulol1"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/label_nombre_precio_compra"
         android:background="@drawable/estilo_borde_texto"
-        android:inputType="number|numberDecimal" />
+        android:inputType="number|numberDecimal"
+        android:singleLine="true" />
     <TextView
         android:id="@+id/label_nombre_precio_venta"
         android:layout_width="wrap_content"
@@ -168,17 +168,18 @@
         android:background="@drawable/estilo_borde_texto"
         android:inputType="number"
         android:singleLine="true" />
+
     <EditText
         android:id="@+id/texto_id_stock"
         android:layout_width="90dp"
         android:layout_height="40dp"
-        android:singleLine="true"
         android:layout_below="@id/id_stock"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@id/fotoArticulo"
         android:background="@drawable/estilo_borde_texto"
-        android:inputType="number" />
+        android:inputType="number"
+        android:singleLine="true" />
 
     <ImageView
         android:id="@+id/fotoArticulo"

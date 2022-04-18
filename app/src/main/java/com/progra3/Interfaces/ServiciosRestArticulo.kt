@@ -9,14 +9,17 @@ import retrofit2.http.*
 
 interface ServiciosRestArticulo {
 
+    @GET("/articulos/buscarCodigo/{codigo}")
+    fun getByCodigo(@Path("codigo")codigo:String):Call<Articulo>
+
     @GET("/articulos/maxid")
     fun getMaxIdArticulos():Call<Articulo>
 
     @GET("/articulos/all")
-    fun getAllArticulos():Call<List<Articulo>>
+    fun getAllArticulos():Call<ArrayList<Articulo>>
 
     @GET("/articulos/buscarPor/{nombre}")
-    fun getLikeAsArticulo(@Path("nombre")nombre:String):Call<List<Articulo>>
+    fun getLikeAsArticulo(@Path("nombre")nombre:String):Call<ArrayList<Articulo>>
 
     @POST("/articulos/agregar")
     fun createArticulo(@Body articulo:Articulo):Call<Articulo>

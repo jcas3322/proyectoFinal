@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Tienda</string>
+    <string name="boton_ventas">VENDER</string>
+    <string name="hint_ventas">Cant</string>
+    <string name="hint_articuloCodigo">Codigo Articulo...</string>
+    <string name="titulo_ventas">MODULO DE VENTAS</string>
     <string name="Titulo_Layout_Articulos">Ingreso de Articulos</string>
     <string name="id_articulo">ID:</string>
     <string name="codigo_articulo">Cod. Art.</string>

@@ -12,35 +12,48 @@ class ImplementacionRestArticulo(val context: Context) {
 
     val retrofit=ConexionRetrofit.buildService(ServiciosRestArticulo::class.java)
 
-    fun buscarPorArticulo(nombre:String):List<Articulo>{
-        var respuesta:List<Articulo> = emptyList()
-        retrofit.getLikeAsArticulo(nombre).enqueue(object :Callback<List<Articulo>>{
-            override fun onResponse(
-                call: Call<List<Articulo>>,
-                response: Response<List<Articulo>>
-            ) {
-                respuesta=response.body() ?: emptyList()
+    fun buscarPorCodigo(codigo:String, onResult: (Articulo?) -> Unit){
+        retrofit.getByCodigo(codigo).enqueue(object :Callback<Articulo>{
+            override fun onResponse(call: Call<Articulo>, response: Response<Articulo>) {
+                val resultado=response.body()
+                onResult(resultado)
             }
 
-            override fun onFailure(call: Call<List<Articulo>>, t: Throwable) {
+            override fun onFailure(call: Call<Articulo>, t: Throwable) {
+                onResult(null)
+            }
+
+        })
+    }
+
+    fun buscarPorArticulo(nombre:String, onResult: (ArrayList<Articulo>?) -> Unit){
+        retrofit.getLikeAsArticulo(nombre).enqueue(object :Callback<ArrayList<Articulo>>{
+            override fun onResponse(
+                call: Call<ArrayList<Articulo>>,
+                response: Response<ArrayList<Articulo>>
+            ) {
+                var respuesta=response.body()
+                onResult(respuesta)
+            }
+
+            override fun onFailure(call: Call<ArrayList<Articulo>>, t: Throwable) {
                 Toast.makeText(context,"Error de Busqueda por nombre... " + t.message,Toast.LENGTH_SHORT).show()
             }
 
         })
-        return respuesta
     }
 
-    fun allArticulos(onResult: (List<Articulo>) -> Unit){
-        retrofit.getAllArticulos().enqueue(object :Callback<List<Articulo>> {
+    fun allArticulos(onResult: (ArrayList<Articulo>?) -> Unit){
+        retrofit.getAllArticulos().enqueue(object :Callback<ArrayList<Articulo>> {
             override fun onResponse(
-                call: Call<List<Articulo>>,
-                response: Response<List<Articulo>>
+                call: Call<ArrayList<Articulo>>,
+                response: Response<ArrayList<Articulo>>
             ) {
-                var respuesta= response.body() ?: emptyList()
+                var respuesta= response.body()
                 onResult(respuesta)
             }
 
-            override fun onFailure(call: Call<List<Articulo>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Articulo>>, t: Throwable) {
                 Toast.makeText(context,"Error de Solicitud de Inventario " + t.message,Toast.LENGTH_SHORT).show()
             }
 
@@ -62,11 +75,11 @@ class ImplementacionRestArticulo(val context: Context) {
         })
     }
 
-    fun deleteArticulo(id: Long){
+    fun deleteArticulo(id: Long, onResult: (Int) -> Unit){
 //        val retrofit=ConexionRetrofit.buildService(ServiciosRestArticulo::class.java)
         retrofit.deleteArticulo(id).enqueue(object :Callback<Void>{
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                Toast.makeText(context,"Recurso Eliminado... Codigo " + response.code(),Toast.LENGTH_SHORT).show()
+                onResult(response.code())
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {

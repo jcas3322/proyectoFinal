@@ -12,10 +12,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -56,7 +53,7 @@ class IngresarArticulos : AppCompatActivity() {
         var nombre:String=""
         var compra:Double=0.0
         var venta:Double=0.0
-        var stock:Int=0
+        var stock:Int=0 //Recibe stock actual para abajo sumarlo al stock que esta ingresando
         var UrlFotoActual=""
     }
 
@@ -127,6 +124,7 @@ class IngresarArticulos : AppCompatActivity() {
                     RestArticulo.addArticulo(articulo){
                         if (it != null){limpiarControles()}
                     }
+
                     //Registrarlo en Ingreso de Articulos
                     var RestIngresoArticulo=ImplementacionRestArticulosIngresados(this)
                     val ingreso=ArticulosIngresados(null,textoIdArticulo?.text!!.toString().toLong(),
@@ -145,27 +143,57 @@ class IngresarArticulos : AppCompatActivity() {
     */
                 }
             }else{
-                //Falta implementar update de articulo para ingreso de stock y modificacion de articulo-------
+                //Implementacion de UPDATE para ingreso de nuevo stock y por si el usuario desea actualizar
+                //algun valor del item
+                if(verificarCampos()){
+                    //Creando el objeto para dar el Update
+                    var articulo=Articulo(textoIdArticulo?.text!!.toString().toLong(),textoCodArticulo?.text!!.toString(),
+                        textoNombreArticulo?.text!!.toString(),textoPrecioCompra?.text!!.toString().toDouble(),
+                        textoPrecioVenta?.text!!.toString().toDouble(),(textoStock?.text!!.toString().toInt() + stock),UrlFotoActual)
+
+                    //Haciendo UPDATE
+                    var RestArticulo=ImplementacionRestArticulo(this)
+                    RestArticulo.updateArticulo(textoIdArticulo?.text!!.toString().toLong(),articulo){
+                        if (it != null){limpiarControles()}
+                    }
+
+                    //Registrarlo en Ingreso de Articulos
+                    var RestIngresoArticulo=ImplementacionRestArticulosIngresados(this)
+                    val ingreso=ArticulosIngresados(null,textoIdArticulo?.text!!.toString().toLong(),
+                        textoStock?.text!!.toString().toInt(),null)
+                    RestIngresoArticulo.addIngresoArticulo(ingreso){
+                        if (it != null){
+                            Toast.makeText(this,"Operacion Finalizada con EXITO",Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
         }
         textoIdArticulo?.focusable= View.NOT_FOCUSABLE
         siModificaroNo()
+        if (modificar) {
+            textoStock?.requestFocus()
+            textoStock?.selectAll()
+        }
     }
 
     //Creando funcion de modificar o ingresar nuevo articulo
     fun siModificaroNo(){
         if (modificar){
+            val botonGuardar=findViewById<Button>(R.id.boton_guardar_l1)
+            botonGuardar.setText("INGRESAR STOCK")
+            val titulo=findViewById<TextView>(R.id.etiquetaTituloArticulos)
+            titulo.setText("MODIFICAR ARTICULO")
             textoCodArticulo?.setText(codigo)
             textoNombreArticulo?.setText(nombre)
             textoPrecioCompra?.setText(compra.toString())
             textoPrecioVenta?.setText(venta.toString())
             textoIdArticulo?.setText(idArticulo.toString())
-            textoStock?.setText(stock.toString())
+            textoStock?.setText("1")
             val uri= Uri.parse(UrlFotoActual)
             val stream=contentResolver.openInputStream(uri)
             val imageBitmap=BitmapFactory.decodeStream(stream)
             iVfoto?.setImageBitmap(imageBitmap)
-            textoCodArticulo?.requestFocus()
         }else{
             var buscarmaxId=ImplementacionRestArticulo(this)
             textoIdArticulo?.setText("1")

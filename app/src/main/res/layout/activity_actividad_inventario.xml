@@ -16,9 +16,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lista"
-        android:layout_below="@id/buscar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/buscar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/botonagregar"
@@ -28,7 +28,18 @@
         app:srcCompat="@android:drawable/ic_input_add"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         />
-
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/botonRefrescar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_refresh"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        />
 </RelativeLayout>
