@@ -6,34 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progresoBarra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
+
+    <RelativeLayout
+        android:visibility="visible"
+        android:id="@+id/master"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <Button
         android:id="@+id/botonInventario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:layout_marginLeft="10dp"
         android:drawableLeft="@drawable/abrir"
-        android:padding="20dp"
-        android:text="ACCESO INVENTARIO" />
+        android:layout_marginTop="20dp"
+        android:text="INVENTARIO" />
 
     <Button
         android:id="@+id/botonVentas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/botonInventario"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:padding="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/abrir"
-        android:padding="20dp"
-        android:text="ACCESO VENTAS" />
+        android:text="VENTAS" />
+    <TextView
+        android:id="@+id/textotitulo"
+        android:layout_below="@id/botonVentas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="REPORTE POR FECHA"
+        android:gravity="center"
+        android:fontFamily="@font/teko_titulos"
+        android:textSize="30sp"
+        />
+
+    <CalendarView
+        android:id="@+id/calendario"
+        android:layout_below="@id/textotitulo"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
     <Button
         android:id="@+id/botonReportes"
         android:drawableLeft="@drawable/abrir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/botonVentas"
+        android:layout_below="@id/calendario"
         android:layout_centerHorizontal="true"
-        android:text="ACCESO A REPORTES"
+        android:text="GENERAR REPORTE"
         android:layout_marginTop="30dp"
-        android:padding="20dp"/>
+        android:padding="10dp"
+        android:textSize="20sp"/>
+    </RelativeLayout>
 </RelativeLayout>

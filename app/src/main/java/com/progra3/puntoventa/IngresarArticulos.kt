@@ -1,10 +1,7 @@
 package com.progra3.puntoventa
 
-import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +16,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.google.zxing.integration.android.IntentIntegrator
-import com.google.zxing.integration.android.IntentResult
 import com.progra3.modelos.Articulo
 import com.progra3.modelos.ArticulosIngresados
 import java.io.File
@@ -111,7 +107,14 @@ class IngresarArticulos : AppCompatActivity() {
             scannerBarras?.launch(integrador.createScanIntent())
         }
 
-        botonVolver.setOnClickListener { finish()}
+        botonVolver.setOnClickListener {
+            finish()
+            /*
+            val enviar=SolicitudFTP()
+            enviar.enviarFoto(UrlFotoActual){
+                    println("Respuesta del Hilo: " + it)
+            }*/
+        }
         botonGuardar.setOnClickListener {
             if (!modificar){
                 if (verificarCampos()){

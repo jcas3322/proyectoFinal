@@ -27,4 +27,21 @@ class ImplementacionRestArticulosIngresados (val context: Context){
 
         })
     }
+
+    fun buscarIngresosPorFecha(fecha:String, onResult: (ArrayList<ArticulosIngresados>?) -> Unit){
+        retrofit.buscarIngresoArticulos(fecha).enqueue(object : Callback<ArrayList<ArticulosIngresados>> {
+            override fun onResponse(
+                call: Call<ArrayList<ArticulosIngresados>>,
+                response: Response<ArrayList<ArticulosIngresados>>
+            ) {
+                onResult(response.body())
+            }
+
+            override fun onFailure(call: Call<ArrayList<ArticulosIngresados>>, t: Throwable) {
+                Toast.makeText(context,"ERROR AL SOLICITAR DATOS "+ t.message,Toast.LENGTH_LONG).show()
+                onResult(null)
+            }
+
+        })
+    }
 }

@@ -118,7 +118,6 @@ class ImplementacionRestArticulo(val context: Context) {
                 onResult(null)
                 Toast.makeText(context,"Error de Operacion Agregar... Codigo " + t.message,Toast.LENGTH_LONG).show()
             }
-
         })
     }
 }

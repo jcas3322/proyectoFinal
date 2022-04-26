@@ -21,17 +21,20 @@
         android:theme="@style/Theme.PuntoVenta"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".actividad_ventas"
-            android:screenOrientation="portrait"
+            android:name=".visorPdf"
             android:exported="false" />
+        <activity
+            android:name=".actividad_ventas"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActividadInventario"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".IngresarArticulos"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -29,6 +29,23 @@ class ImplementacionRestRegistroDeVentas(val contexto: Context) {
         })
     }
 
+    fun reporteFecha(fecha:String,onResult: (ArrayList<RegistroDeVentas>?) -> Unit){
+        retrofit.getRegistroFecha(fecha).enqueue(object : Callback<ArrayList<RegistroDeVentas>> {
+            override fun onResponse(
+                call: Call<ArrayList<RegistroDeVentas>>,
+                response: Response<ArrayList<RegistroDeVentas>>
+            ) {
+                onResult(response.body())
+            }
+
+            override fun onFailure(call: Call<ArrayList<RegistroDeVentas>>, t: Throwable) {
+                Toast.makeText(contexto,"ERROR AL PEDIR DATOS "+t.message,Toast.LENGTH_LONG).show()
+                onResult(null)
+            }
+
+        })
+    }
+
     fun getMaxId(onResult:(RegistroDeVentas?)-> Unit){
         retrofit.getMaxIdRegistroVentas().enqueue(object :Callback<RegistroDeVentas>{
             override fun onResponse(
