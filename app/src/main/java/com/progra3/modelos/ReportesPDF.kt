@@ -1,17 +1,18 @@
 package com.progra3.modelos
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Environment
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.PdfPCell
 import com.itextpdf.text.pdf.PdfPTable
 import com.itextpdf.text.pdf.PdfWriter
+import com.progra3.puntoventa.visorPdf
 import java.io.File
 import java.io.FileOutputStream
 import java.sql.Date
 import java.sql.Time
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ReportesPDF(val context: Context) {
@@ -25,10 +26,22 @@ class ReportesPDF(val context: Context) {
     var fText=Font(Font.FontFamily.TIMES_ROMAN,12F,Font.BOLD)
     var fHighTitle=Font(Font.FontFamily.TIMES_ROMAN,15F,Font.BOLD, BaseColor.RED)
 
+    fun viewPdf(){
+        val intent=Intent(context,visorPdf::class.java)
+        intent.putExtra("ruta",rutaUri())
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    }
+
+    fun rutaUri():String{
+        return "file://"+pdfFile.absolutePath
+    }
+
     fun createFile(){
         val f=context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        val timestamp= "Reporte"+ Date(System.currentTimeMillis()).toString()+Time(System.currentTimeMillis()).toString() //SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        pdfFile=File.createTempFile(timestamp,".pdf",f)
+        //val timestamp= "Reporte"//+ Date(System.currentTimeMillis())//Date(System.currentTimeMillis()).toString()+Time(System.currentTimeMillis()).toString() //SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val nombreFichero="REPORTE"
+        pdfFile=File.createTempFile(nombreFichero,".pdf",f)
     }
 
     fun closeDocument(){document.close()}

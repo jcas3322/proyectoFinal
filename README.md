@@ -1,3 +1,5 @@
 # proyectofinal
-Menu Lanzamiento funcionando, boton de reportes aun no activo, falta implementar
-el resto ya se encuentra ok...
+PROYECTO TERMINADO.
+DOCUMENTACION ENTREGADA.
+MUCHAS GRACIAS, APRENDI BASTANTE, Y UN AMPLIO CAMINO APENAS INICIE.
+SALUDOS A MIS COMPAÑEROS Y ANIMO ING PEÑA, MUCHAS BENDICIONES!!

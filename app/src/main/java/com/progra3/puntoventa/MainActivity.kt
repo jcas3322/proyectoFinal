@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var fecha:Date
     var total:Double=0.0
     var row=ArrayList<Array<String>>()
-    var rowAux= mutableListOf<String>()
+    var rowDetalleIngresos=ArrayList<Array<String>>()
     var RegistroVentas=ArrayList<RegistroDeVentas>()
     var DetalleVenta=ArrayList<ArticulosVendidos>()
 
@@ -48,8 +48,7 @@ class MainActivity : AppCompatActivity() {
             val barra=findViewById<ProgressBar>(R.id.progresoBarra)
             barra.visibility=View.VISIBLE
             master.visibility=View.GONE
-            cargarVentas()
-
+            cargarDetalleIngresos()
         }
 
         botonVentas.setOnClickListener {
@@ -68,11 +67,17 @@ class MainActivity : AppCompatActivity() {
         modeloPdf.addTitles("NOMBRE DEL ESTABLECIMIENTO", "REPORTE DE VENTAS REALIZADAS", fecha.toString())
         modeloPdf.createTable(titulo1,row)
         modeloPdf.addParrafo("TOTAL DE VENTAS EXPRESADAS EN QUETZALES Q" + total.toString())
+        modeloPdf.addParrafo("--------------------------------------------------------------------------")
+        //Nueva Tabla
+        val titulo2= arrayOf("ID","CODIGO DE ARTICULO","CANTIDAD INGRESO")
+        modeloPdf.createTable(titulo2,rowDetalleIngresos)
         modeloPdf.closeDocument()
         val master=findViewById<RelativeLayout>(R.id.master)
         val barra=findViewById<ProgressBar>(R.id.progresoBarra)
         barra.visibility=View.GONE
         master.visibility=View.VISIBLE
+        //Disparo de INTENT
+        modeloPdf.viewPdf()
     }
 
     fun cargarDetalleVentas(){
@@ -97,6 +102,20 @@ class MainActivity : AppCompatActivity() {
             }*/
         }
         llenarGeneral()
+    }
+
+    fun cargarDetalleIngresos(){
+        rowDetalleIngresos.clear()
+        val detalleIngresos=ImplementacionRestArticulosIngresados(this)
+        detalleIngresos.buscarIngresosPorFecha(fecha.toString()){
+            if (it!=null){
+                for(i in it) {
+                    rowDetalleIngresos.add(arrayOf(i.id.toString(),i.idArticulo.toString(),
+                    i.cantidadIngreso.toString()))
+                }
+            }
+            cargarVentas()
+        }
     }
 
     fun cargarVentas(){

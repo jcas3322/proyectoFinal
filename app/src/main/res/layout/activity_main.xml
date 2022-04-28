@@ -28,7 +28,7 @@
         android:textSize="20sp"
         android:layout_marginLeft="10dp"
         android:drawableLeft="@drawable/abrir"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="INVENTARIO" />
 
     <Button
@@ -39,7 +39,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:textSize="20sp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:drawableLeft="@drawable/abrir"
         android:text="VENTAS" />
     <TextView
@@ -47,7 +47,7 @@
         android:layout_below="@id/botonVentas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="45dp"
         android:text="REPORTE POR FECHA"
         android:gravity="center"
         android:fontFamily="@font/teko_titulos"

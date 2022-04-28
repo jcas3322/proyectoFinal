@@ -3,4 +3,7 @@
 <external-path
     name="my_images"
     path="Android/data/com.progra3.puntoventa/files/Pictures"/>
+    <external-path
+        name="my_pdfs"
+        path="Android/data/com.progra3.puntoventa/files/Documents"/>
 </paths>
