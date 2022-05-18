@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun llenarGeneral(){
-        val titulo1= arrayOf("HORA","MONTO","TOTAL ITEMS","CODIGO","CANTIDAD")
+        val titulo1= arrayOf("HORA","MONTO","TOTAL ITEMS","NOMBRE","CANTIDAD")
         val modeloPdf=ReportesPDF(this)
         modeloPdf.openDocument()
         modeloPdf.addMetaData("REPORTE GENERAL","AGROVETERINARIA KEVIN", "PERSONAL")
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         modeloPdf.addParrafo("TOTAL DE VENTAS EXPRESADAS EN QUETZALES Q" + total.toString())
         modeloPdf.addParrafo("--------------------------------------------------------------------------")
         //Nueva Tabla
-        val titulo2= arrayOf("ID","CODIGO DE ARTICULO","CANTIDAD INGRESO")
+        val titulo2= arrayOf("ID","NOMBRE ARTICULO","CANTIDAD INGRESO")
         modeloPdf.createTable(titulo2,rowDetalleIngresos)
         modeloPdf.closeDocument()
         val master=findViewById<RelativeLayout>(R.id.master)
@@ -82,15 +82,42 @@ class MainActivity : AppCompatActivity() {
 
     fun cargarDetalleVentas(){
         val resultadoDetalleVentas=ImplementacionRestArticulosVendidos(this)
+        val resultadoArticulo=ImplementacionRestArticulo(this)
+        val listadoArticulos = resultadoArticulo.allArticulos2()
+
         for(i in RegistroVentas){
             total+=i.montoVenta
             row.add(arrayOf(i.horaVenta.toString(),"Q"+i.montoVenta.toString(),i.cantidadArticulosVendidos.toString(),
             "-------------","------------"))
 
             DetalleVenta=resultadoDetalleVentas.otraForma(i.id)
+
             for (x in DetalleVenta){
-                row.add(arrayOf("-------------","-------------","-------------",x.idArticulo.toString(),
-                    x.cantidadVendida.toString()))
+                if (listadoArticulos != null){
+                    for (y in listadoArticulos) {
+                        if (y.id == x.idArticulo){
+                            row.add(
+                                arrayOf(
+                                    "-------------",
+                                    "-------------",
+                                    "-------------",
+                                    y.nombre.substring(0,10),
+                                    x.cantidadVendida.toString()
+                                )
+                            )
+                        }
+                    }
+                }else {//esto puede pasar debido a que el item orignal pudo haber sido eliminado mas no su registro
+                    row.add(
+                        arrayOf(
+                            "-------------",
+                            "-------------",
+                            "-------------",
+                            x.idArticulo.toString(),
+                            x.cantidadVendida.toString()
+                        )
+                    )
+                }
             }
 
             /*
@@ -107,11 +134,30 @@ class MainActivity : AppCompatActivity() {
     fun cargarDetalleIngresos(){
         rowDetalleIngresos.clear()
         val detalleIngresos=ImplementacionRestArticulosIngresados(this)
+        val resultadoArticulo=ImplementacionRestArticulo(this)
+        val listadoArticulos=resultadoArticulo.allArticulos2()
         detalleIngresos.buscarIngresosPorFecha(fecha.toString()){
             if (it!=null){
                 for(i in it) {
-                    rowDetalleIngresos.add(arrayOf(i.id.toString(),i.idArticulo.toString(),
-                    i.cantidadIngreso.toString()))
+                    if (listadoArticulos != null){
+                        for (y in listadoArticulos){
+                            if (y.id == i.idArticulo){
+                                rowDetalleIngresos.add(
+                                    arrayOf(
+                                        i.id.toString(), y.nombre.substring(0,10),
+                                        i.cantidadIngreso.toString()
+                                    )
+                                )
+                            }
+                        }
+                    }else {
+                        rowDetalleIngresos.add(
+                            arrayOf(
+                                i.id.toString(), i.idArticulo.toString(),
+                                i.cantidadIngreso.toString()
+                            )
+                        )
+                    }
                 }
             }
             cargarVentas()

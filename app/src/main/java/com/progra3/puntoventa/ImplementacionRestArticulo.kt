@@ -1,6 +1,7 @@
 package com.progra3.puntoventa
 
 import android.content.Context
+import android.os.StrictMode
 import android.widget.Toast
 import com.progra3.Interfaces.ServiciosRestArticulo
 import com.progra3.modelos.Articulo
@@ -41,6 +42,11 @@ class ImplementacionRestArticulo(val context: Context) {
             }
 
         })
+    }
+    fun allArticulos2():ArrayList<Articulo>?{
+        val policia= StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policia)
+        return retrofit.getAllArticulos().execute().body()
     }
 
     fun allArticulos(onResult: (ArrayList<Articulo>?) -> Unit){
